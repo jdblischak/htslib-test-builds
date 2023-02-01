@@ -34,4 +34,4 @@ jobs:
           cache-env: true
       - name: Build recipe
         shell: bash -l {0}
-        run: bioconda-utils build --packages htslib
+        run: bioconda-utils build --force --packages htslib
