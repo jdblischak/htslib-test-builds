@@ -9,7 +9,7 @@
 # Known limitations:
 #
 # * No m2-libdeflate or m2w64-libdeflate
-# * No m2w64-openssl
+# * No m2w64-libcurl
 name: Build m2w64-htslib
 on:
   push:
@@ -27,7 +27,9 @@ jobs:
         with:
           environment-file: false
           environment-name: env
-          extra-specs: conda-build, conda-forge-pinning
+          extra-specs: |
+            conda-build
+            conda-forge-pinning
           channels: conda-forge
           cache-env: true
       - name: Build recipe
