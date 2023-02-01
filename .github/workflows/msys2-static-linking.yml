@@ -76,6 +76,7 @@ jobs:
 
           # build with patches
           make
+      - uses: ilammy/msvc-dev-cmd@v1
       - name: Check linking
         shell: powershell
         run: |
