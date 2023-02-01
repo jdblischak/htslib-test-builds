@@ -8,6 +8,9 @@
 #    https://github.com/samtools/htslib/blob/develop/.appveyor.yml
 name: Use GitHub Action setup-msys2
 on:
+  push:
+    paths:
+      - '.github/workflows/setup-msys2-action.yml'
   workflow_dispatch:
 jobs:
   htslib:
