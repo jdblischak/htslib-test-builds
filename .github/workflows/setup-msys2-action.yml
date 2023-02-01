@@ -30,4 +30,12 @@ jobs:
           rmdir htslib-1.16/
       - name: Install dependencies with pacman
         run: |
-          pacman -S --noconfirm --needed base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-autotools mingw-w64-x86_64-zlib mingw-w64-x86_64-bzip2 mingw-w64-x86_64-xz mingw-w64-x86_64-curl mingw-w64-x86_64-tools-git
+          pacman -S --noconfirm --needed \
+            base-devel \
+            mingw-w64-x86_64-toolchain \
+            mingw-w64-x86_64-autotools \
+            mingw-w64-x86_64-zlib \
+            mingw-w64-x86_64-bzip2 \
+            mingw-w64-x86_64-xz \
+            mingw-w64-x86_64-curl \
+            mingw-w64-x86_64-tools-git
