@@ -7,7 +7,7 @@ package:
 build:
   number: 0
   run_exports:
-    - {{ pin_subpackage('htslib', max_pin='x.x') }}
+    - {{ pin_subpackage('m2w64-htslib', max_pin='x.x') }}
 
 source:
   url: https://github.com/samtools/htslib/releases/download/{{ version }}/htslib-{{ version }}.tar.bz2
