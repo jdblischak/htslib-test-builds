@@ -1,0 +1,44 @@
+{% set version = "1.16" %}
+
+package:
+  name: m2w64-htslib
+  version: {{ version }}
+
+build:
+  number: 0
+  run_exports:
+    - {{ pin_subpackage('htslib', max_pin='x.x') }}
+
+source:
+  url: https://github.com/samtools/htslib/releases/download/{{ version }}/htslib-{{ version }}.tar.bz2
+  sha256: 606b7c7aff73734cf033ecd156f40529fa5792f54524952a28938ca0890d7924
+
+requirements:
+  build:
+    - m2-make
+    - {{ compiler('m2w64_c') }}
+  host:
+    - m2-libcurl
+    - m2-bzip2
+    - m2-xz
+    - m2-zlib
+    - m2-openssl
+  run:
+    - m2w64-bzip2
+    - m2w64-xz
+    - m2w64-zlib
+    - m2w64-openssl
+    - msys2-conda-epoch
+    - m2w64-gcc-libs
+
+test:
+  commands:
+    - bgzip --version
+    - htsfile --version
+    - tabix --version
+
+about:
+  home: https://github.com/samtools/htslib
+  summary: C library for high-throughput sequencing data formats.
+  license: MIT
+  license_file: LICENSE

@@ -1,0 +1,38 @@
+# Strategy:
+#
+# 1. Start with bioconda recipe for linux/macos
+#    https://github.com/bioconda/bioconda-recipes/tree/master/recipes/htslib
+#
+# 2. Follow examples of other m2w64 recipes, eg
+#    https://github.com/conda-forge/msys2-recipes/blob/c34a184e6d198d5dc9286cf5a0ebcac241481fe6/msys2/m2w64-icu/meta.yaml
+#
+# Known limitations:
+#
+# * No m2-libdeflate or m2w64-libdeflate
+# * No m2w64-openssl
+name: Build m2w64-htslib
+on:
+  push:
+    paths:
+      - '.github/workflows/conda-m2w64.yml'
+  workflow_dispatch:
+jobs:
+  htslib:
+    runs-on: windows-2022
+    name: m2w64-htslib
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install conda-build with micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: false
+          environment-name: env
+          extra-specs: conda-build, conda-forge-pinning
+          channels: conda-forge
+          cache-env: true
+      - name: Build recipe
+        shell: bash -l {0}
+        run: conda build m2w64-htslib
+      - name: Check for built packages
+        shell: bash -l {0}
+        run: ls -lh $CONDA_PREFIX/conda-bld/*/*htslib-*.tar.bz2
