@@ -1,0 +1,37 @@
+# Strategy:
+#
+# 1. Follow local setup instructions to install bioconda-utils
+#    https://bioconda.github.io/contributor/building-locally.html#using-bioconda-utils
+#
+# 2. Build the existing bioconda recipe for htslib
+#    https://github.com/bioconda/bioconda-recipes/tree/master/recipes/htslib
+name: Build bioconda recipe
+on:
+  push:
+    paths:
+      - '.github/workflows/bioconda.yml'
+  workflow_dispatch:
+jobs:
+  htslib:
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macOS-11, ubuntu-22.04]
+    steps:
+      - name: Clone bioconda-recipes
+        uses: actions/checkout@v3
+        with:
+          repository: bioconda/bioconda-recipes
+      - name: Install bioconda-utils with micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: false
+          environment-name: env
+          extra-specs: bioconda-utils
+          channels: conda-forge, bioconda
+          cache-env: true
+      - name: Build recipe
+        shell: bash -l {0}
+        run: bioconda-utils build --packages htslib
