@@ -15,6 +15,7 @@ on:
   push:
     paths:
       - '.github/workflows/conda-m2w64.yml'
+      - 'm2w64-htslib/**'
   workflow_dispatch:
 jobs:
   htslib:
