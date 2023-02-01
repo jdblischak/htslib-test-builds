@@ -23,11 +23,13 @@ requirements:
     - m2-xz
     - m2-zlib
     - m2-openssl
+    - m2-grep
   run:
     - m2w64-bzip2
     - m2w64-xz
     - m2w64-zlib
     - m2w64-openssl
+    - m2w64-grep
     - msys2-conda-epoch
     - m2w64-gcc-libs
 
