@@ -1,0 +1,86 @@
+# Strategy:
+#
+# 1. setup msys2 env with GitHub Action setup-msys2
+#    https://github.com/msys2/setup-msys2
+#
+# 2. Follow David's instructions for static linking by applying patches
+#    https://github.com/TileDB-Inc/TileDB-VCF/tree/dlh/sc-24772-msys2-htslib-msvc-tdbvcf-WIP1
+#    https://github.com/TileDB-Inc/TileDB-VCF/blob/dlh/sc-24772-msys2-htslib-msvc-tdbvcf-WIP1/libtiledbvcf/cmake/patches/htslib.1.15.1.Makefile.staticlink
+#    https://github.com/TileDB-Inc/TileDB-VCF/blob/dlh/sc-24772-msys2-htslib-msvc-tdbvcf-WIP1/libtiledbvcf/cmake/patches/htslib.1.15.1.config.mk.staticlink
+name: Static linking with msys2
+on:
+  push:
+    paths:
+      - '.github/workflows/msys2-static-linking.yml'
+  workflow_dispatch:
+jobs:
+  htslib:
+    name: Statically linked htslib
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          location: e:\new_msys64
+      - name: System information
+        run: |
+          echo $MSYSTEM
+          uname -a
+          echo $PATH
+      - name: Install dependencies with pacman
+        run: |
+          pacman -S --noconfirm --needed \
+            base-devel \
+            mingw-w64-x86_64-toolchain \
+            mingw-w64-x86_64-autotools \
+            mingw-w64-x86_64-zlib \
+            mingw-w64-x86_64-bzip2 \
+            mingw-w64-x86_64-xz \
+            mingw-w64-x86_64-curl \
+            mingw-w64-x86_64-tools-git \
+            mingw-w64-x86_64-libdeflate
+      - name: Download and extract source htslib tarball
+        run: |
+          cd /e/new_msys64
+          curl -O -L "https://github.com/samtools/htslib/releases/download/1.15.1/htslib-1.15.1.tar.bz2"
+          tar -jxvf htslib-1.15.1.tar.bz2
+      - name: Build
+        run: |
+          cd /e/new_msys64/
+
+          # trial run
+          cd htslib-1.15.1
+          ./configure
+          make
+          ls hts-3.*
+          # [should show]
+          # hts-3.def  hts-3.dll  hts-3.lib
+
+          # cleanup
+          make clean
+
+          # reconfigure
+          ./configure CFLAGS=-DCURL_STATICLIB
+
+          # download patches
+          wget https://raw.githubusercontent.com/TileDB-Inc/TileDB-VCF/dlh/sc-24772-msys2-htslib-msvc-tdbvcf-WIP1/libtiledbvcf/cmake/patches/htslib.1.15.1.Makefile.staticlink
+          wget https://raw.githubusercontent.com/TileDB-Inc/TileDB-VCF/dlh/sc-24772-msys2-htslib-msvc-tdbvcf-WIP1/libtiledbvcf/cmake/patches/htslib.1.15.1.config.mk.staticlink
+
+          # make backups
+          cp Makefile Makefile.orig
+          cp config.mk config.mk.orig
+
+          # apply patches
+          cp htslib.1.15.1.Makefile.staticlink Makefile
+          cp htslib.1.15.1.config.mk.staticlink config.mk
+
+          # build with patches
+          make
+      - name: Check linking
+        shell: powershell
+        run: |
+          cd /e/new_msys64/htslib-1.15.1
+          dumpbin /imports hts-3.dll | findstr /i dll
