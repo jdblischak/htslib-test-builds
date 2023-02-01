@@ -16,7 +16,7 @@ source:
 requirements:
   build:
     - m2-make
-    - {{ compiler('m2w64_c') }}
+    - m2w64-gcc
   host:
     - m2-libcurl
     - m2-bzip2
