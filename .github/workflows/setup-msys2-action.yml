@@ -22,6 +22,7 @@ jobs:
         run: |
           echo $MSYSTEM
           uname -a
+          echo $PATH
       - name: Download and extract source htslib tarball
         run: |
           curl -sLO https://github.com/samtools/htslib/releases/download/1.16/htslib-1.16.tar.bz2
@@ -45,3 +46,11 @@ jobs:
         run: make
       - name: make install
         run: make install
+      - name: Confirm installation
+        run: |
+          which bgzip
+          bgzip --version
+          which htsfile
+          htsfile --version
+          which tabix
+          tabix --version
