@@ -16,7 +16,7 @@ source:
 requirements:
   build:
     - m2-make
-    - m2w64-gcc
+    - {{ compiler('r_clang') }}
     - m2-gawk
   host:
     - m2-libcurl
