@@ -20,6 +20,10 @@ jobs:
     defaults:
       run:
         shell: msys2 {0}
+    env:
+      PACKAGE_VERSION: 1.15.1
+      LIBHTS_SOVERSION: 3
+      RELEASE_VERSION: 0 # equivalent to conda build number
     steps:
       - uses: msys2/setup-msys2@v2
         with:
@@ -43,16 +47,16 @@ jobs:
             mingw-w64-x86_64-libdeflate
       - name: Download and extract source htslib tarball
         run: |
-          curl -O -L "https://github.com/samtools/htslib/releases/download/1.15.1/htslib-1.15.1.tar.bz2"
-          tar -jxvf htslib-1.15.1.tar.bz2
-          mv htslib-1.15.1/* .
-          rmdir htslib-1.15.1/
+          curl -O -L "https://github.com/samtools/htslib/releases/download/${PACKAGE_VERSION}/htslib-${PACKAGE_VERSION}.tar.bz2"
+          tar -jxvf htslib-${PACKAGE_VERSION}.tar.bz2
+          mv htslib-${PACKAGE_VERSION}/* .
+          rmdir htslib-${PACKAGE_VERSION}/
       - name: Build
         run: |
           # trial run
           ./configure
           make
-          ls hts-3.*
+          ls -lh hts-${LIBHTS_SOVERSION}.*
           # [should show]
           # hts-3.def  hts-3.dll  hts-3.lib
 
@@ -77,15 +81,15 @@ jobs:
           # build with patches
           make
 
-          ls hts-3.*
+          ls -lh hts-${LIBHTS_SOVERSION}.*
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Check linking
         shell: powershell
         run: |
-          dumpbin /imports hts-3.dll | findstr /i dll
+          dumpbin /imports hts-${env:LIBHTS_SOVERSION}.dll | findstr /i dll
       - name: Upload .dll as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: hts-3.dll
-          path: hts-3.dll
+          name: hts-${{ env.LIBHTS_SOVERSION }}.dll
+          path: hts-${{ env.LIBHTS_SOVERSION }}.dll
           retention-days: 14
