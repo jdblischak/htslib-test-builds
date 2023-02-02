@@ -76,8 +76,16 @@ jobs:
 
           # build with patches
           make
+
+          ls hts-3.*
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Check linking
         shell: powershell
         run: |
           dumpbin /imports hts-3.dll | findstr /i dll
+      - name: Upload .dll as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: hts-3.dll
+          path: hts-3.dll
+          retention-days: 14
