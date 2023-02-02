@@ -1,0 +1,48 @@
+name: Built a statically linked htslib.dll under msys2
+on:
+  push:
+    paths:
+      - '.github/workflows/msys2-htslib-prototype.yml'
+      - 'patches/**'
+      - 'scripts/**'
+  workflow_dispatch:
+jobs:
+  build:
+    name: build
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 {0}
+    env:
+      PACKAGE_VERSION: 1.15.1
+      LIBHTS_SOVERSION: 3
+      RELEASE_VERSION: 0 # equivalent to conda build number
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: ci
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+      - name: System information
+        run: |
+          echo $MSYSTEM
+          uname -a
+          echo $PATH
+      - name: Install dependencies with pacman
+        run: bash ci/scripts/install-dependencies.sh
+      - name: Download and extract source htslib tarball
+        run: bash ci/scripts/download-htslib.sh
+      - name: Build
+        run: bash ci/scripts/build-htslib.sh
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: Check linking
+        shell: powershell
+        run: |
+          dumpbin /imports hts-${env:LIBHTS_SOVERSION}.dll | findstr /i dll
+      - name: Upload .dll as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: hts-${{ env.LIBHTS_SOVERSION }}.dll
+          path: hts-${{ env.LIBHTS_SOVERSION }}.dll
+          retention-days: 14
