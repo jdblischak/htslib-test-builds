@@ -18,6 +18,7 @@ requirements:
     - m2-make
     - m2w64-gcc
     - m2-gawk
+    - m2w64-toolchain
   host:
     - m2-libcurl
     - m2-bzip2
