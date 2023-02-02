@@ -1,10 +1,14 @@
+set -eu
+
+PATCH_DIR="$1"
+
 LIBHTS_SOVERSION=${LIBHTS_SOVERSION-3}
 
 ./configure CFLAGS=-DCURL_STATICLIB
 
 # apply patches
-patch Makefile ci/patches/makefile.staticlink.patch
-patch config.mk ci/patches/config.mk.staticlink.patch
+patch Makefile "${PATCH_DIR}/makefile.staticlink.patch"
+patch config.mk "${PATCH_DIR}/config.mk.staticlink.patch"
 
 make
 

@@ -34,7 +34,7 @@ jobs:
       - name: Download and extract source htslib tarball
         run: bash ci/scripts/download-htslib.sh
       - name: Build
-        run: bash ci/scripts/build-htslib.sh
+        run: bash ci/scripts/build-htslib.sh ci/patches
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Check linking
         shell: powershell
