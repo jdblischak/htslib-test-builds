@@ -113,6 +113,9 @@ environment for both Ubuntu and macOS. It was relatively straightforward. I used
 [mamba-org/provision-with-micromamba][] to install [bioconda-utils][]
 
 [htslib-bioconda]: https://github.com/bioconda/bioconda-recipes/tree/master/recipes/htslib
+[mamba-org/provision-with-micromamba]: https://github.com/mamba-org/provision-with-micromamba
+[bioconda-utils]: https://github.com/bioconda/bioconda-utils
+
 
 * [bioconda.yml](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/bioconda.yml)
 * [build logs](https://github.com/jdblischak/htslib-test-builds/actions/workflows/bioconda.yml)
