@@ -1,0 +1,43 @@
+46c46,56
+< LIBS     = -lregex -ldeflate -llzma -lbz2 -lws2_32 -lz 
+---
+> #LIBS     =  -lregex -ldeflate -llzma -lbz2 -lws2_32 -lz 
+> LIBS     =  $(MSYSTEM_PREFIX)/lib/libregex.a \
+>             $(MSYSTEM_PREFIX)/lib/libsystre.a \
+>             $(MSYSTEM_PREFIX)/lib/libtre.a \
+>             $(MSYSTEM_PREFIX)/lib/libintl.a \
+>             $(MSYSTEM_PREFIX)/lib/libiconv.a \
+>             $(MSYSTEM_PREFIX)/lib/libdeflate.a \
+>             $(MSYSTEM_PREFIX)/lib/liblzma.a \
+>             $(MSYSTEM_PREFIX)/lib/libbz2.a \
+>             $(MSYSTEM_PREFIX)/lib/libcrypt32.a \
+>             $(MSYSTEM_PREFIX)/lib/libwinpthread.a
+65c75
+< LIBCURL_LIBS = -lcurl
+---
+> LIBCURL_LIBS = $(MSYSTEM_PREFIX)/lib/libcurl.a
+83c93
+< CRYPTO_LIBS = -lcrypto
+---
+> CRYPTO_LIBS = $(MSYSTEM_PREFIX)/lib/libcrypto.a
+114a125,144
+> 
+> LIBS += \
+>      $(MSYSTEM_PREFIX)/lib/libssl.a \
+>      $(MSYSTEM_PREFIX)/lib/libwldap32.a \
+>      $(MSYSTEM_PREFIX)/lib/libcrypto.a \
+>      $(MSYSTEM_PREFIX)/lib/libcrypt32.a \
+>      $(MSYSTEM_PREFIX)/lib/libcertcli.a \
+>      $(MSYSTEM_PREFIX)/lib/libzstd.a \
+>      $(MSYSTEM_PREFIX)/lib/libbrotlidec.a \
+>      $(MSYSTEM_PREFIX)/lib/libbrotlienc.a \
+>      $(MSYSTEM_PREFIX)/lib/libbrotlicommon.a \
+>      $(MSYSTEM_PREFIX)/lib/libssh2.a \
+>      $(MSYSTEM_PREFIX)/lib/libidn2.a \
+>      $(MSYSTEM_PREFIX)/lib/libpsl.a \
+>      -lws2_32 \
+>      $(MSYSTEM_PREFIX)/lib/libunistring.a \
+>      $(MSYSTEM_PREFIX)/lib/libnghttp2.a \
+>      $(MSYSTEM_PREFIX)/lib/libz.a \
+>      $(MSYSTEM_PREFIX)/lib/libbcrypt.a \
+> 

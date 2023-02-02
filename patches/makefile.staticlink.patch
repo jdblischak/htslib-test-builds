@@ -1,0 +1,52 @@
+574c574
+< 	$(CC) $(LDFLAGS) -o $@ test/test_bgzf.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/test_bgzf.o libhts.a  $(LIBS) -lpthread
+577c577
+< 	$(CC) $(LDFLAGS) -o $@ test/test_expr.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/test_expr.o libhts.a  $(LIBS) -lpthread
+580c580
+< 	$(CC) $(LDFLAGS) -o $@ test/test_kfunc.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/test_kfunc.o libhts.a  $(LIBS) -lpthread
+583c583
+< 	$(CC) $(LDFLAGS) -o $@ test/test_kstring.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/test_kstring.o libhts.a  $(LIBS) -lpthread
+613c613
+< 	$(CC) $(LDFLAGS) -o $@ test/test-bcf-sr.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/test-bcf-sr.o libhts.a  $(LIBS) -lpthread
+616c616
+< 	$(CC) $(LDFLAGS) -o $@ test/test-bcf-translate.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/test-bcf-translate.o libhts.a  $(LIBS) -lpthread
+698c698
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads1.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads1.o libhts.a  $(LIBS) -lpthread
+701c701
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads2.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads2.o libhts.a  $(LIBS) -lpthread
+704c704
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads3.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads3.o libhts.a  $(LIBS) -lpthread
+707c707
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads4.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads4.o libhts.a  $(LIBS) -lpthread
+710c710
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads5.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads5.o libhts.a  $(LIBS) -lpthread
+713c713
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads6.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads6.o libhts.a  $(LIBS) -lpthread
+716c716
+< 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads7.o libhts.a -lz $(LIBS) -lpthread
+---
+> 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads7.o libhts.a  $(LIBS) -lpthread
