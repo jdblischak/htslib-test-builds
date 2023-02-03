@@ -68,10 +68,7 @@ jobs:
         run: |
           gh release list
           FULL_VERSION=${PACKAGE_VERSION}-${RELEASE_VERSION}
-          gh release list | grep -q "$FULL_VERSION"
-          existing=$?
-          echo "existing is $existing"
-          if [[ $existing == 1 ]]
+          if ! gh release list | grep -q "$FULL_VERSION"
           then
             echo "Create new release $FULL_VERSION"
             gh release create ${FULL_VERSION} \
