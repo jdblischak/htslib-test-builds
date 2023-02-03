@@ -9,7 +9,7 @@ on:
 env:
   PACKAGE_VERSION: 1.15.1
   LIBHTS_SOVERSION: 3
-  RELEASE_VERSION: 0 # equivalent to conda build number
+  RELEASE_VERSION: 1 # equivalent to conda build number
 jobs:
   build:
     name: build

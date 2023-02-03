@@ -10,6 +10,7 @@ mkdir -p m2w64-htslib-${FULL_VERSION}/bin
 mkdir -p m2w64-htslib-${FULL_VERSION}/include/htslib
 mkdir -p m2w64-htslib-${FULL_VERSION}/lib
 
+cp LICENSE m2w64-htslib-${FULL_VERSION}
 cp hts-${LIBHTS_SOVERSION}.dll m2w64-htslib-${FULL_VERSION}/bin
 cp htslib/hts_defs.h m2w64-htslib-${FULL_VERSION}/include/htslib
 cp htslib/hts_endian.h m2w64-htslib-${FULL_VERSION}/include/htslib
