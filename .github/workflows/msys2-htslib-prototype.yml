@@ -45,6 +45,6 @@ jobs:
       - name: Upload release tarball as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_SOVERSION }}.tar.gz
-          path: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_SOVERSION }}.tar.gz
+          name: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_VERSION }}.tar.gz
+          path: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_VERSION }}.tar.gz
           retention-days: 14
