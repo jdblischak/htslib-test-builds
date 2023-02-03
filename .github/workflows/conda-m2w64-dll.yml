@@ -27,4 +27,7 @@ jobs:
         run: conda build m2w64-htslib-dll
       - name: Check for built packages
         shell: bash -l {0}
-        run: ls -lh $CONDA_PREFIX/conda-bld/*/*htslib-*.tar.bz2
+        run: |
+          echo $CONDA_PREFIX
+          ls $CONDA_PREFIX
+          ls -lh $CONDA_PREFIX/conda-bld/win-64/*htslib-*.tar.bz2
