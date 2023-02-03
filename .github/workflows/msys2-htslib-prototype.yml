@@ -69,5 +69,6 @@ jobs:
           gh release list
           FULL_VERSION=${PACKAGE_VERSION}-${RELEASE_VERSION}
           gh release create ${FULL_VERSION} \
+            --notes ${FULL_VERSION} \
             --title ${FULL_VERSION} \
             m2w64-htslib-${FULL_VERSION}.tar.gz
