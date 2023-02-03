@@ -1,13 +1,7 @@
 @echo on
 
-echo %CD%
-dir
-dir bin
-dir include
-dir include\htslib
-dir lib
-
-copy bin\hts-3.dll %LIBRARY_PREFIX%\bin
+robocopy bin %LIBRARY_PREFIX%\bin *.dll
+mkdir %LIBRARY_PREFIX%\include\htslib
 copy include\htslib\hfile.h %LIBRARY_PREFIX%\include\htslib
 copy include\htslib\hts.h %LIBRARY_PREFIX%\include\htslib
 copy include\htslib\hts_defs.h %LIBRARY_PREFIX%\include\htslib
@@ -29,5 +23,8 @@ copy include\htslib\synced_bcf_reader.h %LIBRARY_PREFIX%\include\htslib
 copy include\htslib\tbx.h %LIBRARY_PREFIX%\include\htslib
 copy include\htslib\vcf.h %LIBRARY_PREFIX%\include\htslib
 copy include\htslib\vcfutils.h %LIBRARY_PREFIX%\include\htslib
-copy lib\hts-3.lib %LIBRARY_PREFIX%\lib
+robocopy lib %LIBRARY_PREFIX%\lib *.lib
 IF %ERRORLEVEL% NEQ 0 exit 1
+
+dir %LIBRARY_PREFIX%\include
+dir %LIBRARY_PREFIX%\include\htslib
