@@ -1,0 +1,29 @@
+name: Build m2w64-htslib from statically linked htslib.dll
+on:
+  push:
+    paths:
+      - '.github/workflows/conda-m2w64-dll.yml'
+      - 'm2w64-htslib-dll/**'
+  workflow_dispatch:
+jobs:
+  htslib:
+    runs-on: windows-2022
+    name: m2w64-htslib
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install conda-build with micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: false
+          environment-name: env
+          extra-specs: |
+            conda-build
+            conda-forge-pinning
+          channels: conda-forge
+          cache-env: true
+      - name: Build recipe
+        shell: bash -l {0}
+        run: conda build m2w64-htslib-dll
+      - name: Check for built packages
+        shell: bash -l {0}
+        run: ls -lh $CONDA_PREFIX/conda-bld/*/*htslib-*.tar.bz2

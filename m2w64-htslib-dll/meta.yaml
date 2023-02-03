@@ -1,0 +1,32 @@
+{% set version = "1.15.1" %}
+{% set release = "0" %}
+{% set sha256 = "4d1957078b92ddfd2c0fc46740716e62ede028af8d82c71250131ee75a15d970" %}
+
+package:
+  name: m2w64-htslib
+  version: {{ version }}
+
+build:
+  number: {{ release }}
+  run_exports:
+    - {{ pin_subpackage('m2w64-htslib', max_pin='x.x') }}
+
+source:
+  url: https://github.com/jdblischak/htslib-test-builds/releases/download/{{ version }}-{{ release }}/m2w64-htslib-{{ version }}-{{ release }}.tar.gz
+  sha256: {{ sha256 }}
+
+requirements:
+  build:
+    - m2-gzip
+    - m2-tar
+
+test:
+  commands:
+    - if not exist %LIBRARY_PREFIX%\\bin\\hts-3.dll exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\htslib\\hfile.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\lib\\hts-3.lib exit 1
+
+about:
+  home: https://github.com/samtools/htslib
+  summary: C library for high-throughput sequencing data formats.
+  license: MIT
