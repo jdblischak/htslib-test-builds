@@ -19,6 +19,7 @@ jobs:
           extra-specs: |
             conda-build
             conda-forge-pinning
+            conda-verify
           channels: conda-forge
           cache-env: true
       - name: Build recipe
