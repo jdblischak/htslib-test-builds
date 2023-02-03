@@ -1,5 +1,5 @@
 {% set version = "1.15.1" %}
-{% set release = "0" %}
+{% set release = "1" %}
 {% set sha256 = "4d1957078b92ddfd2c0fc46740716e62ede028af8d82c71250131ee75a15d970" %}
 
 package:
@@ -26,3 +26,4 @@ about:
   home: https://github.com/samtools/htslib
   summary: C library for high-throughput sequencing data formats.
   license: MIT
+  license_file: LICENSE
