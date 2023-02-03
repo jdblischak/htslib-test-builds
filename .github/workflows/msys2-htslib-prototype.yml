@@ -17,7 +17,6 @@ jobs:
     defaults:
       run:
         shell: msys2 {0}
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -52,10 +51,23 @@ jobs:
   release:
     name: release
     needs: build
+    if: github.repository == 'jdblischak/htslib-test-builds' &&  github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - uses: actions/checkout@v3
       - name: Download release tarball artifact
         uses: actions/download-artifact@v3
         with:
           name: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_VERSION }}.tar.gz
       - run: ls -lhR
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release list
+          FULL_VERSION=${PACKAGE_VERSION}-${RELEASE_VERSION}
+          gh release create ${FULL_VERSION} \
+            --title ${FULL_VERSION} \
+            m2w64-htslib-${FULL_VERSION}.tar.gz
