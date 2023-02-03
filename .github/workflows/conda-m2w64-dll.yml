@@ -25,9 +25,16 @@ jobs:
       - name: Build recipe
         shell: bash -l {0}
         run: conda build m2w64-htslib-dll
+      - name: Upload conda binary as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: m2w64-htslib.tar.bz2
+          path: ${{ env.CONDA_PREFIX }}\conda-bld\win-64\m2w64-htslib-*.tar.bz2
+          retention-days: 14
       - name: Check for built packages
         shell: bash -l {0}
         run: |
           echo $CONDA_PREFIX
           ls $CONDA_PREFIX
-          ls -lh $CONDA_PREFIX/conda-bld/win-64/*htslib-*.tar.bz2
+          ls -lh C:\Users\runneradmin\micromamba-root\envs\env\conda-bld\win-64\m2w64-htslib-1.15.1-0.tar.bz2
+          ls -lh $CONDA_PREFIX\conda-bld\win-64\*htslib-*.tar.bz2
