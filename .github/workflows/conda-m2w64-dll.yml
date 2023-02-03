@@ -8,7 +8,7 @@ on:
 jobs:
   htslib:
     runs-on: windows-2022
-    name: m2w64-htslib
+    name: m2w64-htslib-dll
     steps:
       - uses: actions/checkout@v3
       - name: Install conda-build with micromamba

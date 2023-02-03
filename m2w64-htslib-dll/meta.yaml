@@ -10,15 +10,11 @@ build:
   number: {{ release }}
   run_exports:
     - {{ pin_subpackage('m2w64-htslib', max_pin='x.x') }}
+  skip: True  # [not win]
 
 source:
   url: https://github.com/jdblischak/htslib-test-builds/releases/download/{{ version }}-{{ release }}/m2w64-htslib-{{ version }}-{{ release }}.tar.gz
   sha256: {{ sha256 }}
-
-requirements:
-  build:
-    - m2-gzip
-    - m2-tar
 
 test:
   commands:
