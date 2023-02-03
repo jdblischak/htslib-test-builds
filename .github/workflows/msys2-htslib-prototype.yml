@@ -6,6 +6,10 @@ on:
       - 'patches/**'
       - 'scripts/**'
   workflow_dispatch:
+env:
+  PACKAGE_VERSION: 1.15.1
+  LIBHTS_SOVERSION: 3
+  RELEASE_VERSION: 0 # equivalent to conda build number
 jobs:
   build:
     name: build
@@ -13,10 +17,7 @@ jobs:
     defaults:
       run:
         shell: msys2 {0}
-    env:
-      PACKAGE_VERSION: 1.15.1
-      LIBHTS_SOVERSION: 3
-      RELEASE_VERSION: 0 # equivalent to conda build number
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -48,3 +49,13 @@ jobs:
           name: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_VERSION }}.tar.gz
           path: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_VERSION }}.tar.gz
           retention-days: 14
+  release:
+    name: release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download release tarball artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_VERSION }}.tar.gz
+      - run: ls -lhR
