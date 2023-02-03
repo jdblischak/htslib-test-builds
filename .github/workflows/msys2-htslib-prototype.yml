@@ -40,6 +40,8 @@ jobs:
         shell: powershell
         run: |
           dumpbin /imports hts-${env:LIBHTS_SOVERSION}.dll | findstr /i dll
+      - name: List everything
+        run: ls -lhR
       - name: Upload .dll as artifact
         uses: actions/upload-artifact@v3
         with:
