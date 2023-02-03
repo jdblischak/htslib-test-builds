@@ -40,11 +40,11 @@ jobs:
         shell: powershell
         run: |
           dumpbin /imports hts-${env:LIBHTS_SOVERSION}.dll | findstr /i dll
-      - name: List everything
-        run: ls -lhR
-      - name: Upload .dll as artifact
+      - name: Bundle
+        run: bash ci/scripts/bundle-htslib.sh
+      - name: Upload release tarball as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: hts-${{ env.LIBHTS_SOVERSION }}.dll
-          path: hts-${{ env.LIBHTS_SOVERSION }}.dll
+          name: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_SOVERSION }}.tar.gz
+          path: m2w64-htslib-${{ env.PACKAGE_VERSION }}-${{ env.RELEASE_SOVERSION }}.tar.gz
           retention-days: 14
