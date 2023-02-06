@@ -41,6 +41,39 @@ building a statically-linked, dependency-free htslib.dll. The specific changes a
 * [msys2-static-linking.yml](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/msys2-static-linking.yml)
 * [build logs](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-static-linking.yml)
 
+## Prototype to build a statically linked htslib.dll under msys2
+
+This is a continuation of the above job, which had confirmed I could implement
+David's instructions in a GitHub Actions run. This workflow is a prototype of
+what I eventually want to create as the source repository for building these
+statically linked builds.
+
+I made the following updates:
+
+* Moved code into standalone scripts
+* Created and applied patches to `Makefile` and `config.mk` (as opposed to
+  downloading complete replacement files)
+* Used environment variables to avoid hard-coding versions
+* Upload all the required files as an artifact
+* Create a release and upload the tarball as a release artifact
+
+* [msys2-htslib-prototype.yml](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/msys2-htslib-prototype.yml)
+* [build logs](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-htslib-prototype.yml)
+
+## Build m2w64-htslib from statically-linked .dll
+
+Instead of trying to build htslib from source in a conda-installed msys2
+environment (which was attempted in the job described in the section below),
+this job builds a conda binary from a recipe that simply downloads the release
+tarball of the pre-built binary and unpacks it into a conda environment. It
+downloads the release tarball from the releases in this repository created by
+the job
+[msys2-htslib-prototype.yml](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/msys2-htslib-prototype.yml).
+It uploads the conda binary as a workflow artifact.
+
+* [conda-m2w64-dll.yml](https://github.com/jdblischak/htslib-test-builds/actions/workflows/conda-m2w64-dll.yml)
+* [build logs](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/conda-m2w64-dll.yml)
+
 ## Build m2w64-htslib
 
 I attempted to build a m2w64 version of htslib from a conda recipe. I started
