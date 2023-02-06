@@ -7,6 +7,8 @@ experiment with building [htslib][].
 
 ## Build latest htslib release with msys2
 
+[![status](https://github.com/jdblischak/htslib-test-builds/actions/workflows/setup-msys2-action.yml/badge.svg)](https://github.com/jdblischak/htslib-test-builds/actions/workflows/setup-msys2-action.yml)
+
 I created the msys2 environment on GitHub Actions using [msys2/setup-msys2][].
 While msys2 is already pre-installed on the GitHub Actions Windows runner image,
 it's not on the PATH, and I didn't want to deal with the headache of modifying
@@ -25,6 +27,8 @@ pacman flags from the [AppVeyor build][appveyor].
 
 ## Build a statically-linked, dependency-free htslib.dll with current msys2
 
+[![status](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-static-linking.yml/badge.svg)](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-static-linking.yml)
+
 I modified my existing msys2 build above to implement David's instructions for
 building a statically-linked, dependency-free htslib.dll. The specific changes are:
 
@@ -42,6 +46,8 @@ building a statically-linked, dependency-free htslib.dll. The specific changes a
 * [build logs](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-static-linking.yml)
 
 ## Prototype to build a statically linked htslib.dll under msys2
+
+[![status](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-htslib-prototype.yml/badge.svg)](https://github.com/jdblischak/htslib-test-builds/actions/workflows/msys2-htslib-prototype.yml)
 
 This is a continuation of the above job, which had confirmed I could implement
 David's instructions in a GitHub Actions run. This workflow is a prototype of
@@ -62,6 +68,8 @@ I made the following updates:
 
 ## Build m2w64-htslib from statically-linked .dll
 
+[![status](https://github.com/jdblischak/htslib-test-builds/actions/workflows/conda-m2w64-dll.yml/badge.svg)](https://github.com/jdblischak/htslib-test-builds/actions/workflows/conda-m2w64-dll.yml)
+
 Instead of trying to build htslib from source in a conda-installed msys2
 environment (which was attempted in the job described in the section below),
 this job builds a conda binary from a recipe that simply downloads the release
@@ -75,6 +83,8 @@ It uploads the conda binary as a workflow artifact.
 * [build logs](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/conda-m2w64-dll.yml)
 
 ## Build m2w64-htslib
+
+[![status](https://github.com/jdblischak/htslib-test-builds/actions/workflows/conda-m2w64.yml/badge.svg)](https://github.com/jdblischak/htslib-test-builds/actions/workflows/conda-m2w64.yml)
 
 I attempted to build a m2w64 version of htslib from a conda recipe. I started
 from the [bioconda recipe][htslib-bioconda], and replaced the dependencies with
@@ -140,6 +150,8 @@ I tried various compilers. Nothing is currently working.
 
 ## Build bioconda recipe
 
+[![status](https://github.com/jdblischak/htslib-test-builds/actions/workflows/bioconda.yml/badge.svg)](https://github.com/jdblischak/htslib-test-builds/actions/workflows/bioconda.yml)
+
 This was mostly a sanity check. I wanted to confirm that I could build the
 existing  [bioconda recipe for htslib][htslib-bioconda] in a GitHub Actions
 environment for both Ubuntu and macOS. It was relatively straightforward. I used
@@ -148,7 +160,6 @@ environment for both Ubuntu and macOS. It was relatively straightforward. I used
 [htslib-bioconda]: https://github.com/bioconda/bioconda-recipes/tree/master/recipes/htslib
 [mamba-org/provision-with-micromamba]: https://github.com/mamba-org/provision-with-micromamba
 [bioconda-utils]: https://github.com/bioconda/bioconda-utils
-
 
 * [bioconda.yml](https://github.com/jdblischak/htslib-test-builds/blob/main/.github/workflows/bioconda.yml)
 * [build logs](https://github.com/jdblischak/htslib-test-builds/actions/workflows/bioconda.yml)
