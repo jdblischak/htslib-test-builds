@@ -1,4 +1,4 @@
-name: Built a statically linked htslib.dll under msys2
+name: Build a statically linked htslib.dll under msys2
 on:
   push:
     paths:
@@ -65,14 +65,4 @@ jobs:
       - name: Create release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release list
-          FULL_VERSION=${PACKAGE_VERSION}-${RELEASE_VERSION}
-          if ! gh release list | grep -q "$FULL_VERSION"
-          then
-            echo "Create new release $FULL_VERSION"
-            gh release create ${FULL_VERSION} \
-              --notes ${FULL_VERSION} \
-              --title ${FULL_VERSION} \
-              m2w64-htslib-${FULL_VERSION}.tar.gz
-          fi
+        run: bash ci/scripts/release.sh
